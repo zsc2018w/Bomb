@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zyao89.view.zloading.ZLoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:z_type="StarBuilder"
+        app:z_color="@android:color/holo_red_light"/>
+
+    <TextView
+        android:layout_below="@+id/loadingView"
+        android:id="@+id/loading_hint_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:text="加载中..."
+        android:textSize="16dp"
+        android:textColor="@android:color/black" />
+</RelativeLayout>

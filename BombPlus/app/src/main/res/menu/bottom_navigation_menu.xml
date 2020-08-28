@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/home_tab_selector"
+        android:title="@string/tab_home"/>
+    <item
+        android:id="@+id/tab_fund"
+        android:icon="@drawable/fund_tab_selector"
+        android:title="@string/tab_fund"/>
+    <item
+        android:id="@+id/tab_photo"
+        android:icon="@drawable/photo_tab_selector"
+        android:title="@string/tab_photo"/>
+    <item
+        android:id="@+id/tab_my"
+        android:icon="@drawable/my_tab_selector"
+        android:title="@string/tab_mine"/>
+</menu>
+

@@ -1,11 +1,21 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#fff5f5</item>
+        <item name="colorPrimaryDark">#f5f5f5</item>
+      <!--  <item name="colorAccent">#fff5f5</item>-->
     </style>
 
+
+    <style name="SplashTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowDisablePreview">false</item>
+        <item name="android:windowBackground">@mipmap/bomb_splash_bg</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--fix：异形屏全屏时状态栏全黑-->
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="NewApi">true</item>
+    </style>
 </resources>
