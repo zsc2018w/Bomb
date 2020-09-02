@@ -22,6 +22,7 @@ class SplashActivity : BaseActivity() {
     private fun requestPermissions() {
         PermissionsUtils.requestStorage(this, onGranted = {
             toNextPage(MainActivity::class.java)
+            finish()
         }, onDenied = {
             if (PermissionsHelp.FAILURE == it) {
                 requestPermissions()

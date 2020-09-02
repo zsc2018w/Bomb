@@ -1,4 +1,4 @@
-package com.bomb.plus.bean
+package com.bomb.plus.eye.bean
 
 import java.io.Serializable
 

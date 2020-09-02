@@ -38,11 +38,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
 
-    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.1'
-    implementation  'com.scwang.smart:refresh-header-classics:2.0.1'
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.1'
 
     //Banner
     implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
     // 视屏播放器
-    implementation 'com.shuyu:GSYVideoPlayer:2.1.1'
+    implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
 }

@@ -19,11 +19,11 @@ class MainActivity : BaseActivity() {
 
     private val HOME_TAG = "home_tag"
     private val FUND_TAG = "fund_tag"
-    private val GIRL_TAG = "girl_tag"
+    private val GANK_TAG = "GANK_tag"
     private val MY_TAG = "my_tag"
     private var homeFragment: BaseFragment? = null
     private var fundFragment: BaseFragment? = null
-    private var guilFragment: BaseFragment? = null
+    private var gankFragment: BaseFragment? = null
     private var myFragment: BaseFragment? = null
     private var fragmentManager: FragmentManager? = null
     private var currentFragment: Fragment? = null
@@ -51,7 +51,7 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.tab_photo -> {
-                onTabSelected(GIRL_TAG)
+                onTabSelected(GANK_TAG)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.tab_my -> {
@@ -95,8 +95,8 @@ class MainActivity : BaseActivity() {
         if (fundFragment != null) {
             transaction?.hide(fundFragment!!)
         }
-        if (guilFragment != null) {
-            transaction?.hide(guilFragment!!)
+        if (gankFragment != null) {
+            transaction?.hide(gankFragment!!)
         }
         if (myFragment != null) {
             transaction?.hide(myFragment!!)
@@ -115,9 +115,9 @@ class MainActivity : BaseActivity() {
                 fragment = HomeFragment()
                 fundFragment = fragment
             }
-            GIRL_TAG -> {
-                fragment = HomeFragment()
-                guilFragment = fragment
+            GANK_TAG -> {
+                fragment = GankFragment()
+                gankFragment = fragment
             }
             MY_TAG -> {
                 fragment = HomeFragment()

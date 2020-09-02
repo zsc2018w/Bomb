@@ -5,10 +5,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bomb.common.basic.BaseLazyFragment
 import com.bomb.common.core.VMCommon
-import com.bomb.common.net.log
 import com.bomb.plus.R
-import com.bomb.plus.adapter.HomeAdapter
-import com.bomb.plus.viewmodel.HomeViewModel
+import com.bomb.plus.eye.adapter.HomeAdapter
+import com.bomb.plus.eye.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.fragment_main_home.*

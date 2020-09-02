@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.bomb.common.net.Error
 import com.bomb.common.net.exception.ApiException
+import com.bomb.common.net.log
 
 
 open class BaseRepository(
@@ -40,6 +41,7 @@ open class BaseRepository(
                 success(it)
             }, error = {
                 error?.invoke(it)
+                log("http--error--${it.errMsg}")
             }, complete = {
                 complete?.invoke()
             })

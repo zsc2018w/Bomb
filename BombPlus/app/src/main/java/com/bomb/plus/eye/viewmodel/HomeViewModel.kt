@@ -1,10 +1,10 @@
-package com.bomb.plus.viewmodel
+package com.bomb.plus.eye.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.bomb.common.basic.BaseViewModel
-import com.bomb.plus.bean.HomeBean
-import com.bomb.plus.repository.MainRepo
+import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.repository.MainRepo
 
 class HomeViewModel : BaseViewModel() {
 

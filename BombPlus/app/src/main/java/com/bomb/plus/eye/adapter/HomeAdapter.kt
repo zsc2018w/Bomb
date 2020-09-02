@@ -1,16 +1,21 @@
-package com.bomb.plus.adapter
+package com.bomb.plus.eye.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import cn.bingoogolapple.bgabanner.BGABanner
-import com.bomb.common.utils.ToastUtils
+import com.bomb.plus.core.Constants
 import com.bomb.plus.R
-import com.bomb.plus.bean.HomeBean
+import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.video.VideoDetailsActivity
+import com.bomb.plus.utils.ZZUtils.durationFormat
 import com.bumptech.glide.Glide
 
 class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -126,33 +131,29 @@ class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<Recycler
         holder.itemView.findViewById<TextView>(R.id.tv_category).text= "#" + itemData?.category
 
         holder.itemView.setOnClickListener{
-            ToastUtils.show("敬请期待")
-            // view->
-           // goToVideoPlayer(mContext as Activity,holder.itemView.findViewById(R.id.iv_cover_feed),item)
+            goToVideoPlayer(mContext as Activity,holder.itemView.findViewById(R.id.iv_cover_feed),item)
         }
+    }
+
+
+    private fun goToVideoPlayer(activity: Activity, view: View, itemData: HomeBean.Issue.Item) {
+        val intent = Intent(activity, VideoDetailsActivity::class.java)
+        intent.putExtra(Constants.VIDE0_DETAIL_DATA, itemData)
+        intent.putExtra(Constants.TRANSITION, true)
+
+        val pair =  androidx.core.util.Pair(view, Constants.IMG_TRANSITION)
+        val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            activity,
+            pair
+        )
+        ActivityCompat.startActivity(activity, intent, activityOptions.toBundle())
+
     }
 
     private fun inflaterView(parent:ViewGroup,viewId:Int):View{
         return  LayoutInflater.from(mContext).inflate(viewId,parent,false)
     }
 
-    fun durationFormat(duration: Long?): String {
-        val minute = duration!! / 60
-        val second = duration % 60
-        return if (minute <= 9) {
-            if (second <= 9) {
-                "0$minute' 0$second''"
-            } else {
-                "0$minute' $second''"
-            }
-        } else {
-            if (second <= 9) {
-                "$minute' 0$second''"
-            } else {
-                "$minute' $second''"
-            }
-        }
-    }
 
     fun setData(listData: ArrayList<HomeBean.Issue.Item>) {
         this.mListData = listData

@@ -1,4 +1,4 @@
-package com.bomb.plus.service
+package com.bomb.plus.core
 
 enum class ServiceConfigEnum(val value: String) {
     NORAML(""),
