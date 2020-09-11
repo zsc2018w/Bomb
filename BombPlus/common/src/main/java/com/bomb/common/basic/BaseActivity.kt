@@ -1,17 +1,13 @@
 package com.bomb.common.basic
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
-import com.zyao89.view.zloading.ZLoadingDialog
-import com.zyao89.view.zloading.Z_TYPE
-import kotlinx.coroutines.GlobalScope
-
+import com.bomb.common.widget.LoadingDialog
 
 abstract class BaseActivity : FragmentActivity() {
 
-    private var loadingDialog: ZLoadingDialog? = null
+    private var loadingDialog: LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +34,15 @@ abstract class BaseActivity : FragmentActivity() {
 
     fun showLoading() {
         if (loadingDialog == null) {
-            loadingDialog = ZLoadingDialog(this)
-            loadingDialog!!.setLoadingBuilder(Z_TYPE.STAR_LOADING)//设置类型
-                .setLoadingColor(Color.BLACK)//颜色
-                .setHintText("加载中...")
+            loadingDialog = LoadingDialog(this).setCancel(
+                cancelable = false,
+                canceledOnTouchOutside = false
+            )
         }
         loadingDialog?.show()
     }
 
-    fun closeLoading(){
+    fun closeLoading() {
         loadingDialog?.dismiss()
     }
 

@@ -7,4 +7,10 @@
     <string name="tab_gank">干货</string>
     <string name="tab_mine">我的</string>
 
+
+    <string name="gank_title">Gank</string>
+    <string name="gank_poem">海底月是天上月</string>
+
+
+    <string name="picture_title">推荐</string>
 </resources>

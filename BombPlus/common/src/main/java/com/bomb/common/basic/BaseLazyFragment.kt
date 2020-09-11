@@ -7,7 +7,7 @@ import android.os.Bundle
  * 懒加载 fragment
  * 不兼容 viewpager2
  */
-abstract class BaseLazyFragment : BaseFragment() {
+abstract class BaseLazyFragment : BaseF() {
 
     /**
      * 该页面是否准备完毕（onCreateView方法调用完毕）

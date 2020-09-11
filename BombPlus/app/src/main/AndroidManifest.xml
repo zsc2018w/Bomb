@@ -5,6 +5,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:name=".core.GlobalApplication"
@@ -16,6 +21,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <activity android:name=".test.CallbackActivity"></activity>
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -33,6 +39,16 @@
             android:name=".eye.video.VideoDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".webview.WebDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop" />
+
+        <service android:name=".test.FloatWindowService" />
+
+        <activity android:name=".test.TestActivity" />
+        <activity android:name=".test.TActivity" />
     </application>
 
 </manifest>

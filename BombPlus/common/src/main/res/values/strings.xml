@@ -5,4 +5,6 @@
     <string name="empty_view_hint">暂无数据</string>
     <string name="error_view_hint">数据加载失败，请点击重试</string>
     <string name="no_network_view_hint">网络异常,请点击加载重试</string>
+
+    <string name="common_loading">加载中</string>
 </resources>

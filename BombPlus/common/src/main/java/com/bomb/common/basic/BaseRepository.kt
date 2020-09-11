@@ -48,4 +48,8 @@ open class BaseRepository(
         }
     }
 
+    fun postError(){
+
+    }
+
 }

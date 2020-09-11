@@ -1,6 +1,6 @@
 package com.bomb.plus.gank.bean
 
-data class GirlDataBean(
+data class GankDataBean(
     val _id: String,
     val author: String,
     val category: String,
@@ -13,5 +13,7 @@ data class GirlDataBean(
     val title: String,
     val type: String,
     val url: String,
-    val views: Int
+    val views: Int,
+    var height: Int = 0
 )
+

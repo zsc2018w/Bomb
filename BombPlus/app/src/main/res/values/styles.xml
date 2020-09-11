@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#fff5f5</item>
         <item name="colorPrimaryDark">#f5f5f5</item>
+        <item name="android:windowIsTranslucent">true</item>
       <!--  <item name="colorAccent">#fff5f5</item>-->
     </style>
 

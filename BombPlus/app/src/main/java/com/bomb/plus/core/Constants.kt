@@ -10,4 +10,6 @@ object Constants {
 
     const val CATEGORY_DETAIL_DATA: String = "category_detail_data"
 
+    const val DATA = "data"
+
 }

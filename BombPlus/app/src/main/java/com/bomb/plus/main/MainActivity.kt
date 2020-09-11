@@ -21,10 +21,10 @@ class MainActivity : BaseActivity() {
     private val FUND_TAG = "fund_tag"
     private val GANK_TAG = "GANK_tag"
     private val MY_TAG = "my_tag"
-    private var homeFragment: BaseFragment? = null
-    private var fundFragment: BaseFragment? = null
-    private var gankFragment: BaseFragment? = null
-    private var myFragment: BaseFragment? = null
+    private var homeFragment: Fragment? = null
+    private var fundFragment: Fragment? = null
+    private var gankFragment: Fragment? = null
+    private var myFragment: Fragment? = null
     private var fragmentManager: FragmentManager? = null
     private var currentFragment: Fragment? = null
 
@@ -43,6 +43,7 @@ class MainActivity : BaseActivity() {
     private val selectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.tab_home -> {
+                StatusBarUtil.darkModel(this,false)
                 onTabSelected(HOME_TAG)
                 return@OnNavigationItemSelectedListener true
             }
@@ -51,6 +52,7 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.tab_photo -> {
+                StatusBarUtil.darkModel(this,true)
                 onTabSelected(GANK_TAG)
                 return@OnNavigationItemSelectedListener true
             }

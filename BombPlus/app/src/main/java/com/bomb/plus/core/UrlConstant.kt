@@ -15,7 +15,9 @@ object UrlConstant {
      * https://gank.io/api
      * ----------------------------------------------------------------
      */
-    private const val GANK_BASE_URL = "https://gank.io/api/v2"
+    private const val GANK_BASE_URL = "https://gank.io/api/v2/"
+    const val URL_GANK_TYPE = "${GANK_BASE_URL}categories/Article"
+    const val URL_GIRL_TYPE = "${GANK_BASE_URL}categories/Girl"
     const val URL_GIRL_DATA = "${GANK_BASE_URL}data/category/Girl/type/Girl/page/{page}/count/10"
-
+    const val URL_ARTICLE_DATA ="${GANK_BASE_URL}data/category/GanHuo/type/{type}/page/{page}/count/10"
 }

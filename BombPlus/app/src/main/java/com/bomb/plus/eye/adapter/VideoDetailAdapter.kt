@@ -15,11 +15,7 @@ import com.bumptech.glide.Glide
 
 import java.util.*
 
-/**
- * description:
- * author:  周昇辰
- * date:2019/4/8
- */
+
 
 class VideoDetailAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
