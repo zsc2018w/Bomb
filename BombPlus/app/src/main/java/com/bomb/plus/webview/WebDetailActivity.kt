@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.view.View
 
 import com.bomb.common.basic.BaseActivity
 import com.bomb.common.net.log
@@ -11,6 +12,7 @@ import com.bomb.common.utils.StatusBarUtil
 import com.bomb.plus.R
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
+import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 
@@ -20,12 +22,12 @@ class WebDetailActivity : BaseActivity() {
 
     private var url: String = ""
 
-    companion object{
+    companion object {
 
-        fun startActivity(context:Context,url:String){
-            val intent=Intent()
-            intent.setClass(context,WebDetailActivity::class.java)
-            intent.putExtra("URL",url)
+        fun startActivity(context: Context, url: String) {
+            val intent = Intent()
+            intent.setClass(context, WebDetailActivity::class.java)
+            intent.putExtra("URL", url)
             context.startActivity(intent)
         }
     }
@@ -37,7 +39,7 @@ class WebDetailActivity : BaseActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView() {
-        StatusBarUtil.darkModel(this,true)
+        StatusBarUtil.darkModel(this, true)
         initIntent()
         initConfig()
         initClient()
@@ -99,6 +101,7 @@ class WebDetailActivity : BaseActivity() {
                 super.onPageStarted(webview, url, bitmap)
                 log("onPageStarted-->$url")
             }
+
             override fun onPageFinished(webview: WebView?, url: String?) {
                 super.onPageFinished(webview, url)
                 log("onPageFinished-->$url")
@@ -108,9 +111,24 @@ class WebDetailActivity : BaseActivity() {
                 }
             }
 
-            override fun onReceivedError(webview: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            override fun onReceivedError(
+                webview: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
                 super.onReceivedError(webview, request, error)
-                log("onReceivedError-->${error?.description?:"0"}")
+                log("onReceivedError-->${error?.description ?: "0"}")
+            }
+        }
+        webView.webChromeClient = object : WebChromeClient() {
+            override fun onProgressChanged(webview: WebView?, process: Int) {
+                super.onProgressChanged(webview, process)
+                if (process == 100) {
+                    progressBar.visibility = View.GONE
+                } else {
+                    progressBar.progress = process
+                    progressBar.visibility = View.VISIBLE
+                }
             }
         }
     }

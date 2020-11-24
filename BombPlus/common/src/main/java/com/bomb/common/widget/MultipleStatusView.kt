@@ -69,7 +69,6 @@ class MultipleStatusView @JvmOverloads constructor(
             a.getResourceId(R.styleable.MultipleStatusView_contentView, NULL_RESOURCE_ID)
         a.recycle()
         mInflater = LayoutInflater.from(context)
-        log("Status-->init--->$mLoadingViewResId--->$mInflater")
     }
 
 
@@ -86,15 +85,13 @@ class MultipleStatusView @JvmOverloads constructor(
             mOnRetryClickListener = null
         }
      //   mInflater = null
-        log("Status-->onDetachedFromWindow--->$mInflater")
+
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        log("Status-->onAttachedToWindow--->$mInflater")
         if (mInflater == null) {
             mInflater = LayoutInflater.from(context)
-            log("Status-->onAttachedToWindow-- in->$mInflater")
         }
     }
 
@@ -120,11 +117,9 @@ class MultipleStatusView @JvmOverloads constructor(
 
     fun showLoading(layoutId: Int, layoutParams: ViewGroup.LayoutParams) {
         showLoading(inflateView(layoutId), layoutParams)
-        log("Status-->showloading2--->$layoutId---$mInflater")
     }
 
     fun showLoading(view: View?, layoutParams: ViewGroup.LayoutParams) {
-        log("Status-->showloading3--->$view---$mInflater")
         checkNull(view, "Loading view is null!")
         mViewStatus = STATUS_LOADING
         if (null == mLoadingView) {
@@ -175,7 +170,6 @@ class MultipleStatusView @JvmOverloads constructor(
     }
 
     private fun inflateView(layoutId: Int): View? {
-        log("Status-->inflateView--->$layoutId---$mInflater")
         return mInflater?.inflate(layoutId, null)
     }
 

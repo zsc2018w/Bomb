@@ -28,7 +28,6 @@ class GankViewModel : BaseViewModel() {
 
 
     fun getGankGirlData(isRefresh: Boolean = false) {
-        log("getItem-----request girl  $isRefresh")
         gankRepo.requestGirlData(isRefresh, gankGirlliveData)
     }
 
