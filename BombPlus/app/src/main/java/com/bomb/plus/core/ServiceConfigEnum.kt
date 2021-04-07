@@ -4,6 +4,4 @@ enum class ServiceConfigEnum(val value: String) {
     NORAML(""),
     EYE("eye");
 
-
-
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.bomb.plus.core.Constants
 import com.bomb.plus.R
-import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.bean.EyeBean
 import com.bomb.plus.eye.video.VideoDetailsActivity
 import com.bomb.plus.utils.ZZUtils.durationFormat
 import com.bumptech.glide.Glide
@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide
 class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var bannerItemSize = 0
-    var mListData = arrayListOf<HomeBean.Issue.Item>()
+    var mListData = arrayListOf<EyeBean.Issue.Item>()
 
     companion object {
         private const val ITEM_TYPE_BANNER = 1    //Banner 类型
@@ -62,7 +62,7 @@ class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<Recycler
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             ITEM_TYPE_BANNER -> {
-                val bannerItemData: ArrayList<HomeBean.Issue.Item> = mListData.take(bannerItemSize).toCollection(ArrayList())
+                val bannerItemData: ArrayList<EyeBean.Issue.Item> = mListData.take(bannerItemSize).toCollection(ArrayList())
                 val bannerFeedList = ArrayList<String>()
                 val bannerTitleList = ArrayList<String>()
                 //取出banner 显示的 img 和 Title
@@ -81,7 +81,7 @@ class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<Recycler
 
                         }
                     itemView.findViewById<BGABanner>(R.id.banner)
-                        .setDelegate { _, imageView, _, i ->
+                        .setDelegate { _, _, _, i ->
                             //goToVideoPlayer(mContext as Activity,itemView,bannerItemData.get(i))
                         }
                 }
@@ -97,7 +97,7 @@ class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<Recycler
     }
 
 
-    fun setContentItem(holder: ContentViewHolder, item: HomeBean.Issue.Item){
+    fun setContentItem(holder: ContentViewHolder, item: EyeBean.Issue.Item){
 
         val itemData = item.data
 
@@ -136,7 +136,7 @@ class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<Recycler
     }
 
 
-    private fun goToVideoPlayer(activity: Activity, view: View, itemData: HomeBean.Issue.Item) {
+    private fun goToVideoPlayer(activity: Activity, view: View, itemData: EyeBean.Issue.Item) {
         val intent = Intent(activity, VideoDetailsActivity::class.java)
         intent.putExtra(Constants.VIDE0_DETAIL_DATA, itemData)
         intent.putExtra(Constants.TRANSITION, true)
@@ -155,12 +155,12 @@ class HomeAdapter(private val mContext: Context) : RecyclerView.Adapter<Recycler
     }
 
 
-    fun setData(listData: ArrayList<HomeBean.Issue.Item>) {
+    fun setData(listData: ArrayList<EyeBean.Issue.Item>) {
         this.mListData = listData
         notifyDataSetChanged()
     }
 
-    fun loadMoreData(listData: ArrayList<HomeBean.Issue.Item>) {
+    fun loadMoreData(listData: ArrayList<EyeBean.Issue.Item>) {
         val start=itemCount
         mListData.addAll(listData)
         notifyItemRangeInserted(start,listData.size)

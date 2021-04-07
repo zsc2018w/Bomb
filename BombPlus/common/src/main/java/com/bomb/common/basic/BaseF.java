@@ -1,6 +1,7 @@
 package com.bomb.common.basic;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,31 @@ public abstract class BaseF extends Fragment {
         if (getActivity() != null) {
             ((BaseActivity) getActivity()).showLoading();
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("Bomb_T", getClass().getSimpleName()+"--->onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("Bomb_T", getClass().getSimpleName()+"--->onPause");
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d("Bomb_T", getClass().getSimpleName()+"--->onHiddenChanged: --->"+hidden);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d("Bomb_T", getClass().getSimpleName()+"--->setUserVisibleHint:---> "+isVisibleToUser);
     }
 
     protected void closeLoading() {

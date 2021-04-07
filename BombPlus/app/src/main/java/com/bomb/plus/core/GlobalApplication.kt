@@ -1,11 +1,14 @@
 package com.bomb.plus.core
 
 
+import android.annotation.SuppressLint
+import android.os.Process
 import com.bomb.common.basic.BaseApplication
 import com.bomb.common.net.http.HttpUtils
 import com.bomb.common.net.log
+import com.bomb.common.utils.ProcessUtil
 import com.bomb.common.utils.TestTimeMonitor
-import com.bomb.plus.R
+import com.bomb.plus.aidl.MultiProcessManager
 import com.bomb.plus.eye.EyeHttpConfig
 import com.bomb.plus.eye.video.DisplayManager
 import com.scwang.smart.refresh.footer.ClassicsFooter
@@ -33,7 +36,23 @@ class GlobalApplication : BaseApplication() {
         initOkHttp()
         DisplayManager.init(this)
         initX5Kernel()
+        logProcess()
+
         TestTimeMonitor.get().end("App-create")
+
+        MultiProcessManager.register(this)
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        MultiProcessManager.unRegister()
+    }
+
+    @SuppressLint("ServiceCast")
+    fun logProcess() {
+        log("ipc_ProcessUId--->${Process.myUid()}")
+        log("ipc_ProcessName--->${ProcessUtil.getCurrentProcessName(this)}")
+        log("ipc_ProcessId--->${Process.myPid()}")
     }
 
     private fun initOkHttp() {
@@ -73,6 +92,8 @@ class GlobalApplication : BaseApplication() {
         QbSdk.initX5Environment(applicationContext, cb)
 
     }
+
+
 
 
 }

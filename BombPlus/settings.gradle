@@ -1,2 +1,2 @@
-include ':app', ':common'
+include ':app', ':common', ':live_event_bus'
 rootProject.name='BombPlus'

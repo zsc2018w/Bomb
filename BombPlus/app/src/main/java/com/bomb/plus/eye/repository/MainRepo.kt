@@ -4,8 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import com.bomb.common.basic.BaseRepository
 import com.bomb.common.net.exception.ApiException
 import com.bomb.common.net.http.HttpUtils
+import com.bomb.common.net.log
 import com.bomb.common.utils.ToastUtils
-import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.bean.EyeBean
 import com.bomb.plus.eye.EyeService
 import com.bomb.plus.core.ServiceConfigEnum
 import kotlinx.coroutines.CoroutineScope
@@ -22,12 +23,14 @@ class MainRepo(
         HttpUtils.getInstance(ServiceConfigEnum.EYE.value).createService(EyeService::class.java)
     }
 
-    private var bannerHomeBean: HomeBean? = null
+    private var bannerEyeBean: EyeBean? = null
     private var nextPageUrl: String? = ""
 
-    fun requestHomeData(liveData: MutableLiveData<HomeBean>) {
+    fun requestHomeData(liveData: MutableLiveData<EyeBean>) {
+
         launch({
-            var firstHomeData: HomeBean? = null
+            log("thread->>>>block--${isMainThread()}")
+            var firstEyeData: EyeBean? = null
             flow {
                 val firstHomeBean = eyeService.requestFirstHomeData(1)
                 val bannerItemList = firstHomeBean.issueList[0].itemList
@@ -37,7 +40,7 @@ class MainRepo(
                     //移除 item
                     bannerItemList.remove(item)
                 }
-                bannerHomeBean = firstHomeBean
+                bannerEyeBean = firstHomeBean
                 val homeBean = eyeService.requestHomeMoreData(firstHomeBean.nextPageUrl)
                 val newBannerItemList = homeBean.issueList[0].itemList
 
@@ -47,28 +50,31 @@ class MainRepo(
                     //移除 item
                     newBannerItemList.remove(item)
                 }
-                bannerHomeBean!!.issueList[0].count = bannerHomeBean!!.issueList[0].itemList.size
-                bannerHomeBean?.issueList!![0].itemList.addAll(newBannerItemList)
-                emit(bannerHomeBean)
+                bannerEyeBean!!.issueList[0].count = bannerEyeBean!!.issueList[0].itemList.size
+                bannerEyeBean?.issueList!![0].itemList.addAll(newBannerItemList)
+                emit(bannerEyeBean)
             }.collect {
-                firstHomeData = it
+                firstEyeData = it
             }
-            firstHomeData
+            firstEyeData
         }, success = {
+            log("thread->>>>success--${isMainThread()}")
             nextPageUrl = it?.nextPageUrl
             liveData.postValue(it)
         }, error = {
+
             errorLiveData.value = it
             ToastUtils.show(it.errMsg)
         }, complete = {
 
+            log("thread->>>>complete--${isMainThread()}")
         })
     }
 
 
-    fun requestHomeMoreData(liveData: MutableLiveData<HomeBean>) {
+    fun requestHomeMoreData(liveData: MutableLiveData<EyeBean>) {
         launch({
-            var homeData: HomeBean?=null
+            var eyeData: EyeBean?=null
             flow {
                 emit(eyeService.requestHomeMoreData(nextPageUrl!!))
             }.map {
@@ -82,9 +88,9 @@ class MainRepo(
                 }
                 it
             }.collect {
-                homeData = it
+                eyeData = it
             }
-            homeData
+            eyeData
 
         }, success = {
             nextPageUrl = it?.nextPageUrl

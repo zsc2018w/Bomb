@@ -5,7 +5,7 @@ import com.bomb.common.basic.BaseRepository
 import com.bomb.common.net.exception.ApiException
 import com.bomb.common.net.http.HttpUtils
 import com.bomb.common.utils.ToastUtils
-import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.bean.EyeBean
 import com.bomb.plus.eye.EyeService
 import com.bomb.plus.core.ServiceConfigEnum
 import kotlinx.coroutines.CoroutineScope
@@ -20,8 +20,7 @@ class VideoDetailsRepo(
     }
 
 
-    fun requestRelatedVideoData(id: Long, liveData: MutableLiveData<HomeBean.Issue>) {
-
+    fun requestRelatedVideoData(id: Long, liveData: MutableLiveData<EyeBean.Issue>) {
         launch({
             eyeService.getRelatedData(id)
         }, success = {
@@ -29,6 +28,7 @@ class VideoDetailsRepo(
         }, error = {
            ToastUtils.show(it.errMsg)
         })
+
     }
 
 

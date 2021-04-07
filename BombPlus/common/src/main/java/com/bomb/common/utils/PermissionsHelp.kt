@@ -1,6 +1,7 @@
 package com.bomb.common.utils
 
 import androidx.fragment.app.FragmentActivity
+import com.bomb.common.net.log
 import com.tbruyelle.rxpermissions.RxPermissions
 
 
@@ -15,12 +16,35 @@ object PermissionsHelp {
         vararg permissions: String
     ) {
         val rxPermission = RxPermissions(fragmentActivity)
-        rxPermission.requestEach(*permissions).subscribe { permission ->
-            when {
-                permission.granted -> onGranted()
-                permission.shouldShowRequestPermissionRationale -> onDenied(FAILURE)
-                else -> onDenied(FAILURE_NOT_ASK)
+        val size = permissions.size
+        var index = 0
+        var success = true
+        try {
+            rxPermission.requestEach(*permissions).subscribe { permission ->
+                index++
+                when {
+                    permission.granted -> {
+
+                    }
+                    permission.shouldShowRequestPermissionRationale -> {
+                        success = false
+                    }
+                    else ->{
+                        success = false
+                    }
+                }
+                if (index == size) {
+                    if (success) {
+                        onGranted()
+                    } else {
+                        onDenied(FAILURE)
+                    }
+                }
+
             }
+        }catch (e:Exception){
+            log("PermissionsHelp----->$e")
         }
+
     }
 }

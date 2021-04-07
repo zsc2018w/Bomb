@@ -20,7 +20,7 @@ import com.bomb.plus.R
 import com.bomb.plus.eye.adapter.VideoDetailAdapter
 
 
-import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.bean.EyeBean
 import com.bomb.plus.eye.viewmodel.VideoDetailsViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -37,7 +37,7 @@ import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer
 
 class VideoDetailsActivity : BaseActivity() {
 
-    private lateinit var itemData: HomeBean.Issue.Item
+    private lateinit var itemData: EyeBean.Issue.Item
     private var orientationUtils: OrientationUtils? = null
     private var isTransition: Boolean = false
     private var transition: Transition? = null
@@ -80,7 +80,7 @@ class VideoDetailsActivity : BaseActivity() {
     }
 
     private fun getIntentData() {
-        itemData = intent.getSerializableExtra(Constants.VIDE0_DETAIL_DATA) as HomeBean.Issue.Item
+        itemData = intent.getSerializableExtra(Constants.VIDE0_DETAIL_DATA) as EyeBean.Issue.Item
         isTransition = intent.getBooleanExtra(Constants.TRANSITION, false)
     }
 
@@ -162,7 +162,7 @@ class VideoDetailsActivity : BaseActivity() {
         mVideoView.startPlayLogic()
     }
 
-     fun setVideoInfo(itemInfo: HomeBean.Issue.Item) {
+     fun setVideoInfo(itemInfo: EyeBean.Issue.Item) {
         itemData = itemInfo
         mAdapter?.loadMoreData(null,itemInfo)
         // 请求相关的最新等视频
@@ -183,10 +183,10 @@ class VideoDetailsActivity : BaseActivity() {
 
 
     private fun loadVideoInfo() {
-        val playInfo = itemData.data?.playInfo
-        val palyTypeSize = playInfo?.size ?: 0
-        val isWifi = NetUtils.isWifiConnected(this)
-        if (palyTypeSize > 1) {
+       // val playInfo = itemData.data?.playInfo
+       // val palyTypeSize = playInfo?.size ?: 0
+      //  val isWifi = NetUtils.isWifiConnected(this)
+     /*   if (palyTypeSize > 1) {
             if (isWifi) {
                 playInfo?.filter {
                     it.type == "high"
@@ -204,14 +204,14 @@ class VideoDetailsActivity : BaseActivity() {
                     }
                 }
             }
-        } else {
+        } else {*/
             val playUrl = itemData.data?.playUrl
             if (!playUrl.isNullOrBlank()) {
                 setVideo(playUrl)
             } else {
                 ToastUtils.show("播放失败")
             }
-        }
+       // }
         val backgroundUrl =
             itemData.data?.cover?.blurred + "/thumbnail/${DisplayManager.getScreenHeight()!! - DisplayManager.dip2px(
                 250f

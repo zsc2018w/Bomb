@@ -3,13 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bomb.plus">
 
+    <permission
+        android:name="test.permission.yz"
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="test.permission.yz" />
 
     <application
         android:name=".core.GlobalApplication"
@@ -18,10 +24,14 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="false"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".test.CallbackActivity"></activity>
+
+        <activity android:name=".study.basic.ViewBindingTest" />
+        <activity android:name=".study.TestActivity" />
+        <activity android:name=".study.test.CallbackActivity" />
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -38,17 +48,39 @@
         <activity
             android:name=".eye.video.VideoDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop" />
-
+            android:launchMode="singleTop"
+            android:process=":video" />
         <activity
             android:name=".webview.WebDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:process="com.bomb.plus_1" />
 
-        <service android:name=".test.FloatWindowService" />
+        <service android:name=".study.test.FloatWindowService" />
 
-        <activity android:name=".test.TestActivity" />
-        <activity android:name=".test.TActivity" />
+        <activity android:name=".study.test.TestActivity" />
+        <activity android:name=".study.test.TActivity" />
+
+        <meta-data
+            android:name="com.bomb.plus.utils.CustomGlideModule"
+            android:value="AppGlideModule" />
+
+        <service
+            android:name=".aidl.MessengerService"
+            android:process=":Bomb_Serve" />
+        <service
+            android:name=".aidl.BookService"
+            android:exported="true"
+            android:process=":Bomb_Server" />
+        <service
+            android:name=".aidl.ProcessManagerService"
+            android:process=":Bus_Server" />
+
+   <!--     <provider
+            android:authorities="${APPLICATION_ID}.BookProvider"
+            android:name=".study.cp.BookProvider"
+            android:process=":Provider"
+            />-->
     </application>
 
 </manifest>

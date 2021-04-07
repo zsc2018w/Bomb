@@ -25,11 +25,6 @@ abstract class BaseActivity : FragmentActivity() {
     abstract fun initView()
 
 
-    open fun <T> toNextPage(cls: Class<T>) {
-        val intent = Intent()
-        intent.setClass(this, cls)
-        startActivity(intent)
-    }
 
 
     fun showLoading() {

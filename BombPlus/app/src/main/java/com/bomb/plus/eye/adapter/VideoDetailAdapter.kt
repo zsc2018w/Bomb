@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bomb.plus.R
-import com.bomb.plus.eye.bean.HomeBean
+import com.bomb.plus.eye.bean.EyeBean
 import com.bomb.plus.utils.ZZUtils.durationFormat
 import com.bumptech.glide.Glide
 
@@ -19,7 +18,7 @@ import java.util.*
 
 class VideoDetailAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var listData: ArrayList<HomeBean.Issue.Item> = ArrayList<HomeBean.Issue.Item>()
+    var listData: ArrayList<EyeBean.Issue.Item> = ArrayList<EyeBean.Issue.Item>()
 
     companion object {
         private const val ITEM_TYPE_DETAIL = 1
@@ -87,7 +86,7 @@ class VideoDetailAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerV
     private class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 
-    private fun setVideoDetailInfo(data: HomeBean.Issue.Item, holder: ViewHolder) {
+    private fun setVideoDetailInfo(data: EyeBean.Issue.Item, holder: ViewHolder) {
         data.data?.title?.let { holder.itemView.findViewById<TextView>(R.id.tv_title).text = it }
         //视频简介
         data.data?.description?.let {
@@ -112,13 +111,13 @@ class VideoDetailAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerV
 
 
 
-    fun setData(listData: ArrayList<HomeBean.Issue.Item>) {
+    fun setData(listData: ArrayList<EyeBean.Issue.Item>) {
         this.listData = listData
         notifyDataSetChanged()
     }
 
     fun loadMoreData(
-        listData: ArrayList<HomeBean.Issue.Item>?, singleItem: HomeBean.Issue.Item? = null
+        listData: ArrayList<EyeBean.Issue.Item>?, singleItem: EyeBean.Issue.Item? = null
     ) {
         val start = itemCount
         if (!listData.isNullOrEmpty()) {

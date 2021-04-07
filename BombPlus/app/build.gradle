@@ -3,19 +3,69 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def APPLICATION_ID = "com.bomb.plus"
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.1"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
     defaultConfig {
-        applicationId "com.bomb.plus"
-        minSdkVersion 22
-        targetSdkVersion 29
+        applicationId APPLICATION_ID
+        minSdkVersion 21
+        //noinspection OldTargetApi
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+       /* javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }*/
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+
+
+    }
+
+    buildFeatures {
+        //dataBinding = true
+        // for view binding :
+        viewBinding = true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("bomb.jks")
+            storePassword KEYSTORE_PWD
+            keyAlias "bo"
+            keyPassword KEY_PWD
+           // v2SigningEnabled false
+        }
     }
     buildTypes {
         release {
+            //设置是否生成debug版的apk
+            debuggable false
+            //使用正式的签名信息
+            signingConfig signingConfigs.release
+            //ZipAlign优化
+            zipAlignEnabled true
+            //移除无用的resource文件
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            //设置是否生成debug版的apk
+            //debuggable true
+            //使用正式的签名信息
+            signingConfig signingConfigs.release
+            //是否混淆代码
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -24,6 +74,28 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = "1.8"
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+    repositories {
+        flatDir {
+            dirs 'libs' // aar目录
+        }
+    }
+
+    //输出文件格式
+    android.applicationVariants.all { variant ->
+        if (variant.buildType.name != "debug") {
+            variant.getPackageApplicationProvider().get().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+        }
+        variant.outputs.all {
+            outputFileName = "${"Bomb-v" + variant.versionName + "-" + releaseTime() + "-release"}.apk"
+        }
+    }
+
 }
 
 dependencies {
@@ -37,6 +109,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(path: ':common')
+    implementation project(path: ':live_event_bus')
 
     implementation 'com.google.android.material:material:1.0.0'
 
@@ -49,19 +122,28 @@ dependencies {
     // 视屏播放器
     implementation 'com.shuyu:GSYVideoPlayer:7.1.5'
 
-    implementation 'org.greenrobot:eventbus:3.1.1'
 
-
+    //room
     def room_version = "2.2.5"
 
     implementation "androidx.room:room-runtime:$room_version"
     // use kapt for Kotlin
-    kapt  "android.arch.persistence.room:compiler:$room_version"
-
+    kapt "android.arch.persistence.room:compiler:$room_version"
+    //kotlin
     implementation "androidx.room:room-ktx:$room_version"
-    // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation "androidx.room:room-guava:$room_version"
-
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+
+    //数据库调试
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    //gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
+}
+
+//获取时间
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd-HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))
 }

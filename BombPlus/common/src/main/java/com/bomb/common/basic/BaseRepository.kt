@@ -1,15 +1,16 @@
 package com.bomb.common.basic
 
+import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import com.bomb.common.net.Complete
+import com.bomb.common.net.Error
+import com.bomb.common.net.exception.ApiException
 import com.bomb.common.net.launch.LaunchFactory
+import com.bomb.common.net.log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.bomb.common.net.Error
-import com.bomb.common.net.exception.ApiException
-import com.bomb.common.net.log
 
 
 open class BaseRepository(
@@ -33,6 +34,7 @@ open class BaseRepository(
         complete: Complete? = null
     ) {
         launchUI {
+            log("thread->>>>launchUI----${isMainThread()}")
             LaunchFactory.handleException({
                 withContext(Dispatchers.IO) {
                     block()
@@ -50,6 +52,11 @@ open class BaseRepository(
 
     fun postError(){
 
+    }
+
+
+    fun isMainThread(): Boolean {
+        return Looper.getMainLooper().thread === Thread.currentThread()
     }
 
 }

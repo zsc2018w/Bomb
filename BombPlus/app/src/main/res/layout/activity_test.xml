@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".test.TestActivity">
+    tools:context="com.bomb.plus.study.test.TestActivity">
 
 
     <Button
