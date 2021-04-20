@@ -44,7 +44,7 @@ class GlobalApplication : BaseApplication() {
 
         TestTimeMonitor.get().end("App-create")
 
-        //MultiProcessManager.register(this)
+        MultiProcessManager.register(this)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
     }
@@ -97,30 +97,19 @@ class GlobalApplication : BaseApplication() {
         //x5内核初始化接口
         QbSdk.initX5Environment(applicationContext, cb)
 
-
-        val ob = 1
-
-        val xo = if (ob == 1) {
-            1
-        } else {
-            1
-        }
-
-
     }
-
 
 
     private class ApplicationLifecycleObserver : LifecycleObserver {
 
         @OnLifecycleEvent(value = Lifecycle.Event.ON_START)
         fun onAppForeground() {
-
+            log("process--->onAppForeground")
         }
 
         @OnLifecycleEvent(value = Lifecycle.Event.ON_STOP)
         fun onAppBackground() {
-
+            log("process--->onAppBackground")
         }
 
     }
