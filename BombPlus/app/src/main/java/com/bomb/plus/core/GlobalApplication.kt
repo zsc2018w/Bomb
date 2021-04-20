@@ -3,6 +3,10 @@ package com.bomb.plus.core
 
 import android.annotation.SuppressLint
 import android.os.Process
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.bomb.common.basic.BaseApplication
 import com.bomb.common.net.http.HttpUtils
 import com.bomb.common.net.log
@@ -41,6 +45,8 @@ class GlobalApplication : BaseApplication() {
         TestTimeMonitor.get().end("App-create")
 
         MultiProcessManager.register(this)
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
     }
 
     override fun onTerminate() {
@@ -94,6 +100,19 @@ class GlobalApplication : BaseApplication() {
     }
 
 
+    private class ApplicationLifecycleObserver : LifecycleObserver {
+
+        @OnLifecycleEvent(value = Lifecycle.Event.ON_START)
+        fun onAppForeground() {
+            log("process--->onAppForeground")
+        }
+
+        @OnLifecycleEvent(value = Lifecycle.Event.ON_STOP)
+        fun onAppBackground() {
+            log("process--->onAppBackground")
+        }
+
+    }
 
 
 }

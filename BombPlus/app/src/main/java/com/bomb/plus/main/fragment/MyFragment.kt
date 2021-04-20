@@ -1,6 +1,10 @@
 package com.bomb.plus.main.fragment
 
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.bomb.common.basic.BaseLazyFragment
 import com.bomb.plus.R
 
@@ -41,13 +45,27 @@ class MyFragment : BaseLazyFragment() {
     var dataBase: BombDataBase? = null
 
 
+    class MyObserver : LifecycleObserver {
+
+        @OnLifecycleEvent(value = Lifecycle.Event.ON_ANY)
+        fun m1(owner: LifecycleOwner, event: Lifecycle.Event) {
+            log("测试参数---->m1")
+            log("测试参数---->${event}")
+            log("测试参数---->${owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)}")
+        }
+
+        @OnLifecycleEvent(value = Lifecycle.Event.ON_RESUME)
+        fun m2() {
+            log("测试参数---->m2")
+        }
+
+    }
 
 
     override fun initVm() {
         super.initVm()
 
-
-
+        lifecycle.addObserver(MyObserver())
 
         activity?.applicationContext?.let {
 
@@ -89,20 +107,18 @@ class MyFragment : BaseLazyFragment() {
         Te2()
 
 
-
-
     }
 
-  
+
     override fun initView() {
         super.initView()
 
         fView.bt1.setOnClickListener {
 
-    /*        var list = dataBase?.getUserDao()?.queryAll()
+            /*        var list = dataBase?.getUserDao()?.queryAll()
 
 
-            val zList = list as ArrayList<User>*/
+                    val zList = list as ArrayList<User>*/
 
 
             activity?.toNextPage<TestActivity>()
