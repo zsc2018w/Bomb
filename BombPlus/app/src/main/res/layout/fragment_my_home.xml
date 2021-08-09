@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.bomb.plus.study.found.MLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
-    android:background="#f00"
     android:orientation="vertical">
 
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/imageView"
+    <ImageView
+        android:id="@+id/iv"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_float_permission_detect" />
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
 
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="加载" />
+        <LinearLayout
+            android:id="@+id/tLayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            />
 
-    <Button
-        android:id="@+id/bt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="下载" />
+    </RelativeLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-
-
-</LinearLayout>
+</com.bomb.plus.study.found.MLayout>

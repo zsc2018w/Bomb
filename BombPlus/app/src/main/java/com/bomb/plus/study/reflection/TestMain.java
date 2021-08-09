@@ -17,6 +17,13 @@ public class TestMain {
     public void test() throws Exception {
         Log.d("reflection--->", "start");
 
+        int o=180<<2;
+
+        int s=o>>5;
+        Log.d("reflection--->", "计算  "+o+ "   2222   "+s);
+
+
+
         TestObserver testObserver = new TestObserver();
 
         Class testObserverClass = testObserver.getClass();

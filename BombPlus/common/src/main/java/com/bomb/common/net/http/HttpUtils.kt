@@ -75,4 +75,5 @@ class HttpUtils private constructor() {
         return mRetrofit!!.create(cls)
     }
 
+
 }

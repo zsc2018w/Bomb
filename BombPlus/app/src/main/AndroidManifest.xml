@@ -30,7 +30,10 @@
         tools:targetApi="n">
 
         <activity android:name=".study.basic.ViewBindingTest" />
-        <activity android:name=".study.TestActivity" />
+        <activity
+            android:name=".study.TestActivity"
+            android:process=":T_Nb"
+            />
         <activity android:name=".study.test.CallbackActivity" />
         <activity
             android:name=".splash.SplashActivity"

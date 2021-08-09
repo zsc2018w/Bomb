@@ -1,10 +1,19 @@
 package com.bomb.plus.main.fragment
 
+import android.animation.ValueAnimator
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bomb.common.basic.BaseLazyFragment
 import com.bomb.plus.R
 
@@ -12,6 +21,7 @@ import com.bomb.bus.test.Te2
 import com.bomb.common.basic.BaseActivity
 import com.bomb.common.net.log
 import com.bomb.common.net.toNextPage
+import com.bomb.plus.aidl.IRemoteBitmap
 import com.bomb.plus.local_store.db.DBManager
 import com.bomb.plus.local_store.db.entity.EyeDataBean
 import com.bomb.plus.study.basic.TestMain
@@ -20,8 +30,9 @@ import com.bomb.plus.local_store.db.entity.User
 import com.bomb.plus.local_store.db.database.BombDataBase
 import com.bomb.plus.local_store.db.entity.TestBean
 import com.bomb.plus.study.TestActivity
+import com.bomb.plus.study.found.ListFragment
 import kotlinx.android.synthetic.main.fragment_my_home.view.*
-import kotlin.concurrent.thread
+import kotlin.math.abs
 
 
 /**
@@ -65,6 +76,8 @@ class MyFragment : BaseLazyFragment() {
     override fun initVm() {
         super.initVm()
 
+
+
         lifecycle.addObserver(MyObserver())
 
         activity?.applicationContext?.let {
@@ -104,7 +117,10 @@ class MyFragment : BaseLazyFragment() {
         testMain.test()
 
 
-        Te2()
+        val te2=Te2()
+
+
+          te2.condition()
 
 
     }
@@ -112,18 +128,59 @@ class MyFragment : BaseLazyFragment() {
 
     override fun initView() {
         super.initView()
+        val shap = GradientDrawable()
+        shap.shape=GradientDrawable.RECTANGLE
+        val anim=ValueAnimator.ofFloat(0f, 1f)
 
-        fView.bt1.setOnClickListener {
+        anim.duration = 1000
 
-            /*        var list = dataBase?.getUserDao()?.queryAll()
+        anim.repeatCount = -1;
+        anim.addUpdateListener {
+               animation ->
+
+           val value= animation.animatedValue as Float
 
 
-                    val zList = list as ArrayList<User>*/
+            shap.setStroke(100 * value.toInt(), Test.changeAlpha(Color.RED, value))
 
+            shap.setColor(Test.changeAlpha(Color.parseColor("#ff4e00"), value))
 
-            activity?.toNextPage<TestActivity>()
-
+            fView.tLayout.background=shap
         }
+
+
+        fView.tLayout.setOnClickListener {
+            anim.start()
+        }
+
+
+
+
+        fView.rv.layoutManager = LinearLayoutManager(activity)
+        fView.rv.adapter = ListFragment.ListAdapter()
+ /*       fView.bt1.setOnClickListener {
+
+            *//*        var list = dataBase?.getUserDao()?.queryAll()
+
+
+                    val zList = list as ArrayList<User>*//*
+
+
+            val intent = Intent()
+            val bitmap =
+                BitmapFactory.decodeResource(resources, R.mipmap.bg_float_permission_detect)
+           // intent.putExtra("bitmap", bitmap)
+
+            intent.extras?.putBinder("bitmap",object:IRemoteBitmap.Stub(){
+                override fun getBitmap(): Bitmap {
+                     return bitmap
+                }
+
+            })
+            //intent.extras.putBinder()
+            activity?.toNextPage<TestActivity>(intent)
+
+        }*/
 
     }
 

@@ -4,10 +4,7 @@ package com.bomb.plus.main
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
-import android.os.MessageQueue
+import android.os.*
 import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -17,10 +14,8 @@ import com.bomb.common.basic.BaseActivity
 import com.bomb.common.net.log
 import com.bomb.common.utils.StatusBarUtil
 import com.bomb.plus.R
-import com.bomb.plus.main.fragment.GankFragment
-import com.bomb.plus.main.fragment.HomeFragment
-import com.bomb.plus.main.fragment.MyFragment
-import com.bomb.plus.main.fragment.Test
+import com.bomb.plus.databinding.ActivityMainBinding
+import com.bomb.plus.main.fragment.*
 import com.bomb.plus.study.reflection.TestMain
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,11 +53,13 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
+        Debug.stopMethodTracing();
 
         StatusBarUtil.setStatusBarNoSpace(this)
         onTabSelected(MY_TAG)
         bnv_bottom_bar.selectedItemId = R.id.tab_my
         bnv_bottom_bar.setOnNavigationItemSelectedListener(selectedListener)
+
 
         Looper.myQueue().addIdleHandler {
             log("test-->空闲----》1111")
@@ -78,6 +75,7 @@ class MainActivity : BaseActivity() {
         })
 
         TestMain().test()
+
 
     }
 
@@ -216,7 +214,7 @@ class MainActivity : BaseActivity() {
                 homeFragment = fragment
             }
             FUND_TAG -> {
-                fragment = HomeFragment()
+                fragment = FoundFragment()
                 fundFragment = fragment
             }
             GANK_TAG -> {
